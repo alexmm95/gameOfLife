@@ -37,7 +37,21 @@ void iniciaMundo(struct Celula mundo[NUMCOL][NUMFIL], struct Celula celulasVivas
 	mundo[5][4] = celulasVivas[4];	
 }
 
+static void fix_coords(int *x, int *y)
+{
+    if (*x >= NUMCOL)
+        *x = 0;
+    else if (*x < 0)
+        *x = NUMCOL - 1;
+
+    if (*y >= NUMFIL)
+        *y = 0;
+    else if (*y < 0)
+        *y = NUMFIL - 1;
+}
+
 int estaViva(struct Celula mundo[NUMCOL][NUMFIL], int posx, int posy){
+	fix_coords(&posx, &posy);
 	return mundo[posx][posy].estado;
 }
 
@@ -46,105 +60,24 @@ int numVecinosVivos(int posix, int posiy, struct Celula mundo[][NUMFIL]){
 	int res = 0;
 	int posx = posix;
 	int posy = posiy;
-
-	if(posx == 0 && posy == 0){
-		if(estaViva(mundo, posx+1, posy) == 1)
-			res++;
-		if(estaViva(mundo, posx+1, posy+1) == 1)
-			res++;
-		if(estaViva(mundo, posx, posy+1) == 1)
-			res++;
-	}
-	else if(posx == 0 && posy == NUMFIL-1){	
-		if(estaViva(mundo, posx, posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1, posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1, posy) == 1)
-			res++;	
-	}
-	else if(posx == NUMCOL-1 && posy == 0){	
-		if(estaViva(mundo, posx-1, posy) == 1)
-			res++;
-		if(estaViva(mundo, posx-1, posy+1) == 1)
-			res++;
-		if(estaViva(mundo, posx, posy+1) == 1)
-			res++;	
-	}	
-	else if(posx == NUMCOL-1 && posy == NUMFIL-1){	
-		if(estaViva(mundo, posx, posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx-1, posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx-1, posy) == 1)
-			res++;	
-	}
-	else if(posx == 0){
-		if(estaViva(mundo, posx,posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1,posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1,posy) == 1)
-			res++;
-		if(estaViva(mundo, posx+1,posy+1) == 1)
-			res++;
-		if(estaViva(mundo, posx,posy+1) == 1)
-			res++;
-	}
-	else if(posy == 0){
-		if(estaViva(mundo, posx-1,posy) == 1)
-			res++;
-		if(estaViva(mundo, posx-1,posy+1) == 1)
-			res++;
-		if(estaViva(mundo, posx,posy+1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1,posy+1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1,posy) == 1)
-			res++;
-	}
-	else if(posx == NUMCOL-1){
-		if(estaViva(mundo, posx,posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx-1,posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx-1,posy) == 1)
-			res++;
-		if(estaViva(mundo, posx-1,posy+1) == 1)
-			res++;
-		if(estaViva(mundo, posx,posy+1) == 1)
-			res++;
-	}
-	else if(posy == NUMFIL-1){
-		if(estaViva(mundo, posx-1,posy) == 1)
-			res++;
-		if(estaViva(mundo, posx-1,posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx,posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1,posy-1) == 1)
-			res++;
-		if(estaViva(mundo, posx+1,posy) == 1)
-			res++;
-	}
-	else{
-		if(estaViva(mundo, posx-1, posy) == 1)
-			res++;
-		if(estaViva(mundo, posx-1, posy+1) == 1)
-       	 	        res++;
-		if(estaViva(mundo, posx, posy+1) == 1)
-        	        res++;
-		if(estaViva(mundo, posx+1, posy+1) == 1)
-       	 	        res++;
-		if(estaViva(mundo, posx+1, posy) == 1)
-        	        res++;
-		if(estaViva(mundo, posx+1, posy-1) == 1)
-        	        res++;
-		if(estaViva(mundo, posx, posy-1) == 1)
-        	        res++;
-		if(estaViva(mundo, posx-1, posy-1) == 1)
-       	 	        res++;
-	}
+	
+	if(estaViva(mundo, posx-1, posy) == 1)
+		res++;
+	if(estaViva(mundo, posx-1, posy+1) == 1)
+       	 	res++;
+	if(estaViva(mundo, posx, posy+1) == 1)
+                res++;
+	if(estaViva(mundo, posx+1, posy+1) == 1)
+       	        res++;
+	if(estaViva(mundo, posx+1, posy) == 1)
+                res++;
+	if(estaViva(mundo, posx+1, posy-1) == 1)
+                res++;
+	if(estaViva(mundo, posx, posy-1) == 1)
+                res++;
+	if(estaViva(mundo, posx-1, posy-1) == 1)
+       	        res++;
+	
 	return res;
 }
 
