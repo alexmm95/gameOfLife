@@ -22,6 +22,19 @@ enum mundo_attr{
 	TABLERO2
 };
 
+static int mundo_set_posx(struct mundo *m, int tamx);
+static int mundo_set_posy(struct mundo *m, int tamy);
+static int mundo_set_tabl_actual(struct mundo *m, int act);
+static void mundo_set_tablero1(struct mundo *m, struct Celula *tablero);
+static void mundo_set_tablero2(struct mundo *m, struct Celula *tablero);
+static int mundo_get_posx(const struct mundo *m);
+static int mundo_get_posy(const struct mundo *m);
+static int mundo_get_tabl_actual(const struct mundo *m);
+static struct Celula* mundo_get_tablero1(const struct mundo *m);
+static struct Celula* mundo_get_tablero2(const struct mundo *m);
+static struct Celula *get_tablero_lectura(const struct mundo *m);
+static struct Celula *get_tablero_escritura(const struct mundo *m);
+
 int mundo_set_posx(struct mundo *m, int tamx){
 	int res;
 	if (tamx <= 0 || tamx >80)
